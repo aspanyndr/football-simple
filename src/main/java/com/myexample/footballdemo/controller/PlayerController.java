@@ -52,10 +52,9 @@ public class PlayerController {
             response.setStatus(false);
             response.setMessege("Sorry, the player is already exist");
             response.setData(playerDto);
-            // response.setData(optionalPlayer2);
+             response.setData(convertEntityToDto(playerRepository.save(player)));
         }
         else {
-            // response.setData(convertEntityToDto(playerRepository.save(player)));
             playerRepository.save(player);
             response.setStatus(true);
             response.setMessege("Your data has been stored");
@@ -109,26 +108,28 @@ public class PlayerController {
         return response;
     }
 
-    // @PutMapping("/update/{id}")
-    // public DefaultResponse update(@PathVariable("id") Integer id, @RequestBody PlayerDto playerDto) {
-    //     DefaultResponse df = new DefaultResponse();
-    //     Optional<Player> optionaPlayer = playerRepository.findById(id);
-    //     Player player = optionaPlayer.get();
-    //     if (optionaPlayer.isPresent()) {
-    //         playerDto.setIdPlayer(player.getIdPlayer());
-    //         playerDto.setAge(player.getAge());
-    //         playerDto.setPlayerName(player.getPlayerName());
-    //         playerDto.setIdClub(player.getIdClub());
-    //         playerDto.setIdCountry(player.getIdCountry());
-    //         playerDto.setIdPosition(playerDto.getIdPosition());
-    //         df.setStatus(Boolean.TRUE);
-    //         df.setMessege("Player succesfully updated");
-    //     } else {
-    //         df.setStatus(Boolean.FALSE);
-    //         df.setMessege("Sorry can not update player");
-    //     }
-    //     return df;
-    // }
+     @PutMapping("/update/{id}")
+     public DefaultResponse update(@PathVariable("id") Integer id, @RequestBody PlayerDto playerDto) {
+         DefaultResponse df = new DefaultResponse();
+         Optional<Player> optionaPlayer = playerRepository.findById(id);
+         Player player = optionaPlayer.get();
+         if (optionaPlayer.isPresent()) {
+             playerDto.setIdPlayer(player.getIdPlayer());
+             playerDto.setAge(player.getAge());
+             playerDto.setPlayerName(player.getPlayerName());
+             playerDto.setIdClub(player.getPlayerClub().getIdClub());
+             playerDto.setIdCountry(player.getPlayerCountry().getIdCountry());
+             playerDto.setIdPosition(playerDto.getIdPosition());
+
+             playerRepository.save(player);
+             df.setStatus(Boolean.TRUE);
+             df.setMessege("Player succesfully updated");
+         } else {
+             df.setStatus(Boolean.FALSE);
+             df.setMessege("Sorry can not update player");
+         }
+         return df;
+     }
     
 
     public Player convertDtoToEntity(PlayerDto playerDto) {
@@ -137,17 +138,11 @@ public class PlayerController {
         player.setIdPlayer(playerDto.getIdPlayer());
         player.setPlayerName(playerDto.getPlayerName());
         player.setAge(playerDto.getAge());
-        // pla
+
         // player.setIdClub(playerDto.getIdClub());
         // player.setPlayerClub(playerDto.getIdClub());
         // player.setIdPosition(playerDto.getIdPosition());
 
-        // Club club = clubRepository.findByIdClub(playerDto.getIdClub()).get();
-        // player.setPlayerClub(club);
-        // Country country = countryRepository.findByIdCountry(playerDto.getIdCountry()).get();
-        // player.setPlayerCountry(country);
-        // Position position = positionRepository.findByIdPosition(playerDto.getIdPosition()).get();
-        // player.setPlayerPosition(position);
 
         return player;
     }

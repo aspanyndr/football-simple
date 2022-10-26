@@ -81,11 +81,11 @@ public class ClubController {
             clubRepository.delete(optionalClub.get());
             response.setStatus(Boolean.TRUE);
             response.setMessege("Succes deleted club");
-            response.setData(optionalClub);
+            response.setData(response);
         } else {
             response.setStatus(Boolean.FALSE);
             response.setMessege("Failed delete club");
-            response.setData(optionalClub);
+            response.setData(response);
         }
         return response;
     }

@@ -40,7 +40,7 @@ public class CountryController {
         else{
             countryRepository.save(country);
             response.setStatus(true);
-            response.setMessege("Country has been saved!");
+            response.setMessege("Success, Country has been saved!");
             response.setData(countryDto);
         }
         return response;    
@@ -61,12 +61,12 @@ public class CountryController {
         Optional<Country> optionalCountry = countryRepository.findByIdCountry(id);
         if (optionalCountry.isPresent()){
             response.setStatus(true);
-            response.setMessege("Here's your country");
+            response.setMessege("Found it!, Here's your country");
             response.setData(convertEntityToDto(optionalCountry.get()));
         }
         else if( optionalCountry.isEmpty()){
             response.setStatus(false);
-            response.setMessege("Your country  it's not found");
+            response.setMessege("Sorry theres a mistake, Your country cannot be found");
         }
         return response;
     }
@@ -84,12 +84,12 @@ public class CountryController {
 
             countryRepository.save(country);
             response.setStatus(true);
-            response.setMessege("Country succesfully update");
+            response.setMessege("Success, your Country successfully update");
             response.setData(country);
         }
         else{
             response.setStatus(false);
-            response.setMessege("Sorry Country does not exist");
+            response.setMessege("Sorry theres a mistake, Country does not exist");
         }
         return response;
     }
@@ -101,11 +101,11 @@ public class CountryController {
         if (optionalCountry.isPresent()){
             countryRepository.delete(optionalCountry.get());
             response.setStatus(Boolean.TRUE);
-            response.setMessege("Succes deleted club");
+            response.setMessege("Succes, your country successfully deleted");
             response.setData(optionalCountry);
         } else {
             response.setStatus(Boolean.FALSE);
-            response.setMessege("Failed delete club");
+            response.setMessege("Failed, your country cannot be found");
             response.setData(optionalCountry);
         }
         return response;

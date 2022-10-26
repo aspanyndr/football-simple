@@ -67,7 +67,7 @@ public class PlayerController {
         PlayerDto player = new PlayerDto();
         if (optionalPlayer.isPresent()){
             response.setStatus(true);
-            response.setMessege("Here's your player");
+            response.setMessege("Found it!, Here's your player");
             response.setData(convertEntityToDto(optionalPlayer.get()));
             
         }
@@ -94,7 +94,7 @@ public class PlayerController {
         if (optionalPlayer.isPresent()){
             playerRepository.delete(optionalPlayer.get());
             response.setStatus(Boolean.TRUE);
-            response.setMessege("Succes delete player");
+            response.setMessege("Success delete player");
             response.setData(optionalPlayer);
         } else {
             response.setStatus(Boolean.FALSE);
@@ -115,10 +115,10 @@ public class PlayerController {
 
              df.setData(convertEntityToDto(playerRepository.save(convertDtoToEntity(dto))));
              df.setStatus(Boolean.TRUE);
-             df.setMessege("Player succesfully updated");
+             df.setMessege("Player successfully updated");
          } else {
              df.setStatus(Boolean.FALSE);
-             df.setMessege("Sorry can not update player");
+             df.setMessege("Sorry cannot update player");
          }
          return df;
      }

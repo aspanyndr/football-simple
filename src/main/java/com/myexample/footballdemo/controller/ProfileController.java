@@ -39,13 +39,13 @@ public class ProfileController {
         PlayerProfileDto player = new PlayerProfileDto();
         if (optionalPlayer.isPresent()){
             response.setStatus(true);
-            response.setMessege("Here's your player");
+            response.setMessege("Found it!, Here's your player profile");
             // response.setData(player);
             response.setData(convertEntityToDtoFull(optionalPlayer.get()));
         }
         else{
             response.setStatus(false);
-            response.setMessege("Your player it's not found");
+            response.setMessege("Sorry theres a mistake, your player cannot be found");
         }
         return response;
     }

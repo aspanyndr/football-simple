@@ -26,7 +26,7 @@ public class PositionController {
         Optional<PosPlayer> optionalPosition = positionRepository.findByIdPosition(dto.getIdPosition());
         if (optionalPosition.isPresent()) {
             response.setStatus(false);
-            response.setMessege("Sorry, the player is already exist");
+            response.setMessege("Sorry, the position is already exist");
         }
         else {
             response.setData(dtoToEntity(positionRepository.save(posPlayer)));
@@ -44,7 +44,7 @@ public class PositionController {
         PlayerDto player = new PlayerDto();
         if (optionalPosPlayer.isPresent()){
             response.setStatus(true);
-            response.setMessege("This the position");
+            response.setMessege("Found it!, This is your position");
             response.setData(dtoToEntity(optionalPosPlayer.get()));
         }
         else{
@@ -70,7 +70,7 @@ public class PositionController {
         if (optionalPosPlayer.isPresent()){
             positionRepository.delete(optionalPosPlayer.get());
             response.setStatus(Boolean.TRUE);
-            response.setMessege("Succes delete position");
+            response.setMessege("Success delete position");
             response.setData(optionalPosPlayer);
         } else {
             response.setStatus(Boolean.FALSE);
@@ -92,7 +92,7 @@ public class PositionController {
 
             positionRepository.save(posPlayer);
             response.setStatus(Boolean.TRUE);
-            response.setMessege("Player succesfully updated");
+            response.setMessege("Player successfully updated");
             response.setData(posPlayer);
         } else {
             response.setStatus(Boolean.FALSE);

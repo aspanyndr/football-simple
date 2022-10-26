@@ -44,13 +44,13 @@ public class ClubController {
         Optional <Club> optionalClubId = clubRepository.findByIdClub(clubDto.getIdClub());
         if(optionalClubId.isPresent()){
             response.setStatus(false);
-            response.setMessege("Sorry, the player is already exist");
+            response.setMessege("Sorry, club is already exist");
             response.setData(clubDto);
         }
         else if(optionalClubId.isEmpty()){
             response.setData(convertEntityToDto(clubRepository.save(club)));
             response.setStatus(true);
-            response.setMessege("Your data has been stored");
+            response.setMessege("Thanks!, Your data has been stored");
             response.setData(clubDto);
         }
         return response;
@@ -62,12 +62,12 @@ public class ClubController {
         Optional<Club> optionalClub = clubRepository.findByIdClub(id);
         if (optionalClub.isPresent()){
             response.setStatus(true);
-            response.setMessege("Here's your club");
+            response.setMessege("Success!, Here's your club");
             response.setData(convertEntityToDto(optionalClub.get()));
         }
         else if( optionalClub.isEmpty()){
             response.setStatus(false);
-            response.setMessege("Your club it's not found");
+            response.setMessege("Sorry, your club it's not found");
         }        
         return response;
     }
@@ -88,18 +88,18 @@ public class ClubController {
         if (optionalClub.isPresent()){
             clubRepository.delete(optionalClub.get());
             response.setStatus(Boolean.TRUE);
-            response.setMessege("Succes deleted club");
+            response.setMessege("Success!, deleted your picked club");
             response.setData(optionalClub);
         } else {
             response.setStatus(Boolean.FALSE);
-            response.setMessege("Failed delete club");
+            response.setMessege("Sorry, club that you choose cannot be found");
             response.setData(optionalClub);
         }
         return response;
     }
 
     @PutMapping("/update/{id}")
-    public DefaultResponse<ClubDto> update(@PathVariable("id") Integer id, @RequestBody ClubDto clubDto) {
+    public DefaultResponse<ClubDto> update(@RequestBody ClubDto clubDto, @PathVariable("id") Integer id) {
         DefaultResponse response = new DefaultResponse();
         Optional<Club> optionalClub = clubRepository.findByIdClub(id);
         Club club = optionalClub.get();
@@ -108,11 +108,11 @@ public class ClubController {
 
             response.setData(convertEntityToDto(clubRepository.save(convertDtoToEntity(clubDto))));
             response.setStatus(Boolean.TRUE);
-            response.setMessege("Club succesfully updated");
+            response.setMessege("Success!, your club successfully updated");
 
         } else {
             response.setStatus(Boolean.FALSE);
-            response.setMessege("Sorry can not update club");
+            response.setMessege("Sorry, theres a mistake can not update club");
             response.setData(club);
         }
         return response;
@@ -125,7 +125,7 @@ public class ClubController {
         club.setClubName(clubDto.getClubName());
         club.setCompetition(clubDto.getCompetition());
 
-        Country country = countryRepository.findByIdCountry(clubDto.getIdClub()).get();
+        Country country = countryRepository.findByIdCountry(clubDto.getIdCountry()).get();
         club.setClubCountry(country);
 
 

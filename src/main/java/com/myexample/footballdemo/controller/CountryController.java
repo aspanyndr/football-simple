@@ -79,10 +79,10 @@ public class CountryController {
         Optional<Country> optionalCountry = countryRepository.findByIdCountry(id);
         Country country = optionalCountry.get();
         if(optionalCountry.isPresent()){
-            country.setIdCountry(id);
-            // country.setCountryName(countryDto.getCountryName());
-            // country.setCountryCode(countryDto.getCountryCode());
-            // country.setFifaRank(countryDto.getFifaRank());
+            country.setIdCountry(countryDto.getIdCountry());
+            country.setCountryName(countryDto.getCountryName());
+            country.setFifaRank(countryDto.getFifaRank());
+            country.setIdCountry(countryDto.getIdCountry());
 
             countryRepository.save(country);
             response.setStatus(true);

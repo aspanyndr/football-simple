@@ -18,8 +18,18 @@ public class Club {
     private String clubName;
     @Column
     private String competition;
-    // @Column(name="id_country")
-    // private String idCountry;
+    @Column(name="id_country")
+    private Integer idCountry;
+
+    public Integer getIdCountry() {
+        return this.idCountry;
+    }
+
+    public void setIdCountry(Integer idCountry) {
+        this.idCountry = idCountry;
+    }
+
+
     
     // @OneToOne
     // @JoinColumn(name="id_country", insertable = false, updatable = false)
@@ -49,12 +59,6 @@ public class Club {
         this.competition = competition;
     }
 
-    // public Country getClubCountry() {
-    //     return this.clubCountry;
-    // }
 
-    // public void setClubCountry(Country clubCountry) {
-    //     this.clubCountry = clubCountry;
-    // }
     
 }

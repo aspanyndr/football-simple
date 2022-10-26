@@ -47,10 +47,12 @@ public class PlayerController {
         Player player = convertDtoToEntity(playerDto);
         DefaultResponse<PlayerDto> response = new DefaultResponse<>();
         Optional <Player> optionalPlayer = playerRepository.findByIdPlayer(playerDto.getIdPlayer());
+        List <Player> optionalPlayer2 = playerRepository.findAll();
         if(optionalPlayer.isPresent()){
             response.setStatus(false);
             response.setMessege("Sorry, the player is already exist");
             response.setData(playerDto);
+            // response.setData(optionalPlayer2);
         }
         else {
             // response.setData(convertEntityToDto(playerRepository.save(player)));
@@ -82,8 +84,8 @@ public class PlayerController {
     }
 
     @GetMapping("/get")
-    public List<PlayerDto> getPlayer(){
-        List <PlayerDto> playersDtos = new ArrayList<PlayerDto>();
+    public List getPlayer(){
+        List <PlayerDto> playersDtos = new ArrayList();
         for (Player player : playerRepository.findAll()){
             playersDtos.add(convertEntityToDto(player));
         }

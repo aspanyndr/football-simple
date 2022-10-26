@@ -51,7 +51,7 @@ public class ClubController {
     @GetMapping("/getById/{id}")
     public DefaultResponse<ClubDto> getByIdPlayer (@PathVariable Integer id){
         DefaultResponse<ClubDto> response = new DefaultResponse<>();
-        Optional<Club> optionalClub = clubRepository.findById(id);
+        Optional<Club> optionalClub = clubRepository.findByIdClub(id);
         if (optionalClub.isPresent()){
             response.setStatus(true);
             response.setMessege("Here's your club");
@@ -76,7 +76,7 @@ public class ClubController {
     @DeleteMapping("/delete/{id}")
     public DefaultResponse deleteById(@PathVariable("id") Integer id) {
         DefaultResponse response = new DefaultResponse();
-        Optional<Club> optionalClub = clubRepository.findById(id);
+        Optional<Club> optionalClub = clubRepository.findByIdClub(id);
         if (optionalClub.isPresent()){
             clubRepository.delete(optionalClub.get());
             response.setStatus(Boolean.TRUE);
@@ -93,12 +93,13 @@ public class ClubController {
     @PutMapping("/update/{id}")
     public DefaultResponse update(@PathVariable("id") Integer id, @RequestBody ClubDto clubDto) {
         DefaultResponse df = new DefaultResponse();
-        Optional<Club> optionaClub = clubRepository.findById(id);
+        Optional<Club> optionaClub = clubRepository.findByIdClub(id);
         Club club = optionaClub.get();
         if (optionaClub.isPresent()) {
             club.setIdClub(clubDto.getIdClub());
             club.setClubName(clubDto.getClubName());
             club.setCompetition(clubDto.getCompetition());
+            club.setIdCountry(clubDto.getIdCountry());
 
             
             clubRepository.save(club);

@@ -16,8 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.myexample.footballdemo.model.dto.DefaultResponse;
 import com.myexample.footballdemo.model.dto.PlayerDto;
+import com.myexample.footballdemo.model.entity.Club;
+import com.myexample.footballdemo.model.entity.Country;
 import com.myexample.footballdemo.model.entity.Player;
+import com.myexample.footballdemo.model.entity.Position;
+import com.myexample.footballdemo.repository.ClubRepository;
+import com.myexample.footballdemo.repository.CountryRepository;
 import com.myexample.footballdemo.repository.PlayerRepository;
+import com.myexample.footballdemo.repository.PositionRepository;
 
 @RestController
 @RequestMapping("/player")
@@ -26,36 +32,49 @@ public class PlayerController {
     @Autowired
     PlayerRepository playerRepository;
 
+    @Autowired
+    ClubRepository clubRepository;
+
+    @Autowired
+    CountryRepository countryRepository;
+
+    @Autowired
+    PositionRepository positionRepository;
+
+
     @PostMapping("/save")
     public DefaultResponse<PlayerDto> savePlayer(@RequestBody PlayerDto playerDto){
         Player player = convertDtoToEntity(playerDto);
         DefaultResponse<PlayerDto> response = new DefaultResponse<>();
-        Optional <Player> optionalPlayer = playerRepository.findById(playerDto.getId());
+        Optional <Player> optionalPlayer = playerRepository.findByIdPlayer(playerDto.getIdPlayer());
         if(optionalPlayer.isPresent()){
             response.setStatus(false);
             response.setMessege("Sorry, the player is already exist");
             response.setData(playerDto);
         }
-        else if(optionalPlayer.isEmpty()){
+        else {
+            // response.setData(convertEntityToDto(playerRepository.save(player)));
             playerRepository.save(player);
             response.setStatus(true);
             response.setMessege("Your data has been stored");
-            response.setData(playerDto);
+            // response.setData(playerDto);
         }
         return response;
     }
 
-    @GetMapping("/getById/{id}")
-    public DefaultResponse<PlayerDto> getByIdPlayer (@PathVariable Integer id){
+    @GetMapping("/{idPlayer}")
+    public DefaultResponse<PlayerDto> getByIdPlayer (@PathVariable("idPlayer")  Integer idPlayer){
         DefaultResponse<PlayerDto> response = new DefaultResponse<>();
-        Optional<Player> optionalPlayer = playerRepository.findById(id);
+        Optional<Player> optionalPlayer = playerRepository.findByIdPlayer(idPlayer);
+        PlayerDto player = new PlayerDto();
         if (optionalPlayer.isPresent()){
             response.setStatus(true);
             response.setMessege("Here's your player");
-            // response.setData(response.getData());
+            // response.setData(player);
             response.setData(convertEntityToDto(optionalPlayer.get()));
+            
         }
-        else if( optionalPlayer.isEmpty()){
+        else{
             response.setStatus(false);
             response.setMessege("Your player it's not found");
         }        
@@ -71,10 +90,10 @@ public class PlayerController {
         return playersDtos;
     }
 
-    @DeleteMapping("/delete/{id}")
-    public DefaultResponse deleteById(@PathVariable("id") Integer id) {
+    @DeleteMapping("/delete/{idPlayer}")
+    public DefaultResponse deleteById(@PathVariable("idPlayer") Integer idPlayer) {
         DefaultResponse response = new DefaultResponse();
-        Optional<Player> optionalPlayer = playerRepository.findById(id);
+        Optional<Player> optionalPlayer = playerRepository.findByIdPlayer(idPlayer);
         if (optionalPlayer.isPresent()){
             playerRepository.delete(optionalPlayer.get());
             response.setStatus(Boolean.TRUE);
@@ -88,52 +107,59 @@ public class PlayerController {
         return response;
     }
 
-    @PutMapping("/update/{id}")
-    public DefaultResponse update(@PathVariable("id") Integer id, @RequestBody PlayerDto playerDto) {
-        DefaultResponse df = new DefaultResponse();
-        Optional<Player> optionaPlayer = playerRepository.findById(id);
-        Player player = optionaPlayer.get();
-        if (optionaPlayer.isPresent()) {
-            player.setId(playerDto.getId());
-            player.setPlayerName(playerDto.getPlayerName());
-            player.setPlayerPosition(playerDto.getPlayerPosition());
-            player.setClubPlayer(playerDto.getClubPlayer());
-            player.setCitizenship(playerDto.getCitizenship());
-            
-            playerRepository.save(player);
-            df.setStatus(Boolean.TRUE);
-            df.setMessege("Player succesfully updated");
-            df.setData(player);
-        } else {
-            df.setStatus(Boolean.FALSE);
-            df.setMessege("Can't update player");
-            df.setData(player);
-        }
-        return df;
-    }
+    // @PutMapping("/update/{id}")
+    // public DefaultResponse update(@PathVariable("id") Integer id, @RequestBody PlayerDto playerDto) {
+    //     DefaultResponse df = new DefaultResponse();
+    //     Optional<Player> optionaPlayer = playerRepository.findById(id);
+    //     Player player = optionaPlayer.get();
+    //     if (optionaPlayer.isPresent()) {
+    //         playerDto.setIdPlayer(player.getIdPlayer());
+    //         playerDto.setAge(player.getAge());
+    //         playerDto.setPlayerName(player.getPlayerName());
+    //         playerDto.setIdClub(player.getIdClub());
+    //         playerDto.setIdCountry(player.getIdCountry());
+    //         playerDto.setIdPosition(playerDto.getIdPosition());
+    //         df.setStatus(Boolean.TRUE);
+    //         df.setMessege("Player succesfully updated");
+    //     } else {
+    //         df.setStatus(Boolean.FALSE);
+    //         df.setMessege("Sorry can not update player");
+    //     }
+    //     return df;
+    // }
     
 
     public Player convertDtoToEntity(PlayerDto playerDto) {
         Player player = new Player();
 
-        player.setId(playerDto.getId());
+        player.setIdPlayer(playerDto.getIdPlayer());
         player.setPlayerName(playerDto.getPlayerName());
-        player.setPlayerPosition(playerDto.getPlayerPosition());
-        player.setCitizenship(playerDto.getCitizenship());
-        player.setClubPlayer(playerDto.getClubPlayer());
-    
+        player.setAge(playerDto.getAge());
+        // pla
+        // player.setIdClub(playerDto.getIdClub());
+        // player.setPlayerClub(playerDto.getIdClub());
+        // player.setIdPosition(playerDto.getIdPosition());
+
+        // Club club = clubRepository.findByIdClub(playerDto.getIdClub()).get();
+        // player.setPlayerClub(club);
+        // Country country = countryRepository.findByIdCountry(playerDto.getIdCountry()).get();
+        // player.setPlayerCountry(country);
+        // Position position = positionRepository.findByIdPosition(playerDto.getIdPosition()).get();
+        // player.setPlayerPosition(position);
+
         return player;
     }
 
-    public PlayerDto convertEntityToDto(Player player) {
+    public PlayerDto convertEntityToDto(Player player ) {
         PlayerDto playerDto = new PlayerDto();
 
-        playerDto.setId(player.getId());
+        playerDto.setIdPlayer(player.getIdPlayer());
         playerDto.setPlayerName(player.getPlayerName());
-        playerDto.setPlayerPosition(player.getPlayerPosition());
-        playerDto.setClubPlayer(player.getClubPlayer());
-        playerDto.setCitizenship(player.getCitizenship());
-        
+        playerDto.setAge(player.getAge());
+        playerDto.setIdClub(player.getPlayerClub().getIdClub());
+        playerDto.setIdCountry(player.getPlayerCountry().getIdCountry());
+        playerDto.setIdPosition(player.getPlayerPosition().getIdPosition());
+
         return playerDto;
     }
 

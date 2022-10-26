@@ -2,18 +2,20 @@ package com.myexample.footballdemo.model.dto;
 
 public class PlayerDto {
     
-    private Integer id;
+    private Integer idPlayer;
     private String playerName;
-    private String playerPosition;
-    private String citizenship;
-    private String clubPlayer;
+    private Integer age;
+    private Integer idPosition;
+    private Integer idClub;
+    private Integer idCountry;
 
-    public Integer getId() {
-        return this.id;
+
+    public Integer getIdPlayer() {
+        return this.idPlayer;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdPlayer(Integer idPlayer) {
+        this.idPlayer = idPlayer;
     }
 
     public String getPlayerName() {
@@ -24,28 +26,36 @@ public class PlayerDto {
         this.playerName = playerName;
     }
 
-    public String getPlayerPosition() {
-        return this.playerPosition;
+    public Integer getAge() {
+        return this.age;
     }
 
-    public void setPlayerPosition(String playerPosition) {
-        this.playerPosition = playerPosition;
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
-    public String getCitizenship() {
-        return this.citizenship;
+    public Integer getIdPosition() {
+        return this.idPosition;
     }
 
-    public void setCitizenship(String citizenship) {
-        this.citizenship = citizenship;
+    public void setIdPosition(Integer idPosition) {
+        this.idPosition = idPosition;
     }
 
-    public String getClubPlayer() {
-        return this.clubPlayer;
+    public Integer getIdClub() {
+        return this.idClub;
     }
 
-    public void setClubPlayer(String clubPlayer) {
-        this.clubPlayer = clubPlayer;
+    public void setIdClub(Integer idClub) {
+        this.idClub = idClub;
+    }
+
+    public Integer getIdCountry() {
+        return this.idCountry;
+    }
+
+    public void setIdCountry(Integer idCountry) {
+        this.idCountry = idCountry;
     }
 
 }

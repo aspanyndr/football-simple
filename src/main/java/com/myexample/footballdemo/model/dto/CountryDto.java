@@ -1,21 +1,11 @@
-package com.myexample.footballdemo.model.entity;
+package com.myexample.footballdemo.model.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+public class CountryDto {
 
-@Entity
-@Table(name="t_country")
-public class Country {
-
-    @Id
-    @Column(name = "id_country")
     private Integer idCountry;
-    @Column
     private String countryName;
-    @Column
     private Integer fifaRank;
+
 
     public Integer getIdCountry() {
         return this.idCountry;

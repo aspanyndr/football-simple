@@ -5,12 +5,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.myexample.footballdemo.model.entity.Player;
+import com.myexample.footballdemo.model.entity.Country;
 
 @Repository
-public interface PlayerRepository extends JpaRepository<Player, Integer>{
+public interface CountryRepository extends JpaRepository<Country, Integer>{
 
-    Optional<Player> findByIdPlayer(Integer idPlayer);
-
+    Optional<Country> findByIdCountry(Integer idCountry);
     
 }

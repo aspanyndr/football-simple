@@ -3,27 +3,34 @@ package com.myexample.footballdemo.model.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name ="footbal_club")
+@Table(name ="t_club")
 public class Club {
 
     @Id
-    @Column(name="id")
-    private Integer id;
-    @Column(name="club_name")
+    @Column(name="id_club")
+    private Integer idClub;
+    @Column
     private String clubName;
-    @Column(name="nick_name")
-    private String nickName;
+    @Column
+    private String competition;
+    // @Column(name="id_country")
+    // private String idCountry;
     
+    // @OneToOne
+    // @JoinColumn(name="id_country", insertable = false, updatable = false)
+    // private Country clubCountry;
 
-    public Integer getId() {
-        return this.id;
+    public Integer getIdClub() {
+        return this.idClub;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdClub(Integer idClub) {
+        this.idClub = idClub;
     }
 
     public String getClubName() {
@@ -34,12 +41,20 @@ public class Club {
         this.clubName = clubName;
     }
 
-    public String getNickName() {
-        return this.nickName;
+    public String getCompetition() {
+        return this.competition;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setCompetition(String competition) {
+        this.competition = competition;
     }
 
+    // public Country getClubCountry() {
+    //     return this.clubCountry;
+    // }
+
+    // public void setClubCountry(Country clubCountry) {
+    //     this.clubCountry = clubCountry;
+    // }
+    
 }

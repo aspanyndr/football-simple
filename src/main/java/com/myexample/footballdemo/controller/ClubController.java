@@ -28,14 +28,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/club")
 public class ClubController {
 
-
-
     @Autowired
     ClubRepository clubRepository;
-
     @Autowired
     CountryRepository countryRepository;
-
 
     @PostMapping("/save")
     public DefaultResponse<ClubDto> saveClub(@RequestBody ClubDto clubDto){
@@ -98,10 +94,10 @@ public class ClubController {
         return response;
     }
 
-    @PutMapping("/update/{id}")
-    public DefaultResponse<ClubDto> update(@RequestBody ClubDto clubDto, @PathVariable("id") Integer id) {
+    @PutMapping("/update")
+    public DefaultResponse<ClubDto> update(@RequestBody ClubDto clubDto) {
         DefaultResponse response = new DefaultResponse();
-        Optional<Club> optionalClub = clubRepository.findByIdClub(id);
+        Optional<Club> optionalClub = clubRepository.findByIdClub(clubDto.getIdClub());
         Club club = optionalClub.get();
         if (optionalClub.isPresent()) {
 

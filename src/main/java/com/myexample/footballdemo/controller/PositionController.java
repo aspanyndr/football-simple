@@ -80,10 +80,10 @@ public class PositionController {
         return response;
     }
 
-    @PutMapping("/update/{idPosition}")
-    public DefaultResponse updatePosition( @RequestBody PosDto dto, @PathVariable("idPosition") Integer idPosition) {
+    @PutMapping("/update")
+    public DefaultResponse updatePosition( @RequestBody PosDto dto) {
         DefaultResponse response = new DefaultResponse();
-        Optional<PosPlayer> optionalPosPlayer = positionRepository.findByIdPosition(idPosition);
+        Optional<PosPlayer> optionalPosPlayer = positionRepository.findByIdPosition(dto.getIdPosition());
         PosPlayer posPlayer = optionalPosPlayer.get();
         if (optionalPosPlayer.isPresent()) {
 

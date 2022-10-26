@@ -104,14 +104,12 @@ public class PlayerController {
         return response;
     }
 
-     @PutMapping("/update/{id}")
-     public DefaultResponse update(@PathVariable("id") Integer id, @RequestBody PlayerDto dto) {
+     @PutMapping("/update")
+     public DefaultResponse update( @RequestBody PlayerDto dto) {
          DefaultResponse df = new DefaultResponse();
-         Optional<Player> optionaPlayer = playerRepository.findById(id);
+         Optional<Player> optionaPlayer = playerRepository.findById(dto.getIdPlayer());
          Player player = optionaPlayer.get();
          if (optionaPlayer.isPresent()) {
-
-             dto.setIdPlayer(player.getIdPlayer());
 
              df.setData(convertEntityToDto(playerRepository.save(convertDtoToEntity(dto))));
              df.setStatus(Boolean.TRUE);

@@ -71,10 +71,10 @@ public class CountryController {
         return response;
     }
 
-    @PutMapping("/update/{id}")
-    public DefaultResponse<CountryDto> updateCountry(@RequestBody CountryDto countryDto, @PathVariable("id") Integer id){
+    @PutMapping("/update")
+    public DefaultResponse<CountryDto> updateCountry(@RequestBody CountryDto countryDto){
         DefaultResponse response = new DefaultResponse<>();
-        Optional<Country> optionalCountry = countryRepository.findByIdCountry(id);
+        Optional<Country> optionalCountry = countryRepository.findByIdCountry(countryDto.getIdCountry());
         Country country = optionalCountry.get();
         if(optionalCountry.isPresent()){
             country.setIdCountry(countryDto.getIdCountry());

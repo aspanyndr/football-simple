@@ -67,10 +67,8 @@ public class CountryController {
         else if( optionalCountry.isEmpty()){
             response.setStatus(false);
             response.setMessege("Your country  it's not found");
-        }   
-
+        }
         return response;
-
     }
 
     @PutMapping("/update/{id}")
@@ -92,7 +90,6 @@ public class CountryController {
         else{
             response.setStatus(false);
             response.setMessege("Sorry Country does not exist");
-            
         }
         return response;
     }

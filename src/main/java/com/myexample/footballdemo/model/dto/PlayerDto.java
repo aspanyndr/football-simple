@@ -5,13 +5,20 @@ public class PlayerDto {
     private Integer idPlayer;
     private String playerName;
     private Integer age;
-    private Integer idPosition;
-    private Integer idClub;
-    private Integer idCountry;
 
+    private Integer idPosition;
+    private String position;
+
+    private Integer idClub;
+    private String clubName;
+    private String competition;
+
+    private Integer idCountry;
+    private String countryName;
+    private Integer fifaRank;
 
     public Integer getIdPlayer() {
-        return this.idPlayer;
+        return idPlayer;
     }
 
     public void setIdPlayer(Integer idPlayer) {
@@ -19,7 +26,7 @@ public class PlayerDto {
     }
 
     public String getPlayerName() {
-        return this.playerName;
+        return playerName;
     }
 
     public void setPlayerName(String playerName) {
@@ -27,7 +34,7 @@ public class PlayerDto {
     }
 
     public Integer getAge() {
-        return this.age;
+        return age;
     }
 
     public void setAge(Integer age) {
@@ -35,27 +42,66 @@ public class PlayerDto {
     }
 
     public Integer getIdPosition() {
-        return this.idPosition;
+        return idPosition;
     }
 
     public void setIdPosition(Integer idPosition) {
         this.idPosition = idPosition;
     }
 
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
     public Integer getIdClub() {
-        return this.idClub;
+        return idClub;
     }
 
     public void setIdClub(Integer idClub) {
         this.idClub = idClub;
     }
 
+    public String getClubName() {
+        return clubName;
+    }
+
+    public void setClubName(String clubName) {
+        this.clubName = clubName;
+    }
+
+    public String getCompetition() {
+        return competition;
+    }
+
+    public void setCompetition(String competition) {
+        this.competition = competition;
+    }
+
     public Integer getIdCountry() {
-        return this.idCountry;
+        return idCountry;
     }
 
     public void setIdCountry(Integer idCountry) {
         this.idCountry = idCountry;
     }
 
+    public String getCountryName() {
+        return countryName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
+    }
+
+    public Integer getFifaRank() {
+        return fifaRank;
+    }
+
+    public void setFifaRank(Integer fifaRank) {
+        this.fifaRank = fifaRank;
+    }
 }

@@ -1,11 +1,6 @@
 package com.myexample.footballdemo.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name ="t_club")
@@ -18,25 +13,21 @@ public class Club {
     private String clubName;
     @Column
     private String competition;
-    @Column(name="id_country")
-    private Integer idCountry;
 
-    public Integer getIdCountry() {
-        return this.idCountry;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="id_country")
+    private Country clubCountry;
+
+    public Country getClubCountry() {
+        return clubCountry;
     }
 
-    public void setIdCountry(Integer idCountry) {
-        this.idCountry = idCountry;
+    public void setClubCountry(Country clubCountry) {
+        this.clubCountry = clubCountry;
     }
-
-
-    
-    // @OneToOne
-    // @JoinColumn(name="id_country", insertable = false, updatable = false)
-    // private Country clubCountry;
 
     public Integer getIdClub() {
-        return this.idClub;
+        return idClub;
     }
 
     public void setIdClub(Integer idClub) {
@@ -44,7 +35,7 @@ public class Club {
     }
 
     public String getClubName() {
-        return this.clubName;
+        return clubName;
     }
 
     public void setClubName(String clubName) {
@@ -52,13 +43,10 @@ public class Club {
     }
 
     public String getCompetition() {
-        return this.competition;
+        return competition;
     }
 
     public void setCompetition(String competition) {
         this.competition = competition;
     }
-
-
-    
 }

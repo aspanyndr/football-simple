@@ -18,7 +18,7 @@ public class Country {
     private Integer fifaRank;
 
     public Integer getIdCountry() {
-        return this.idCountry;
+        return idCountry;
     }
 
     public void setIdCountry(Integer idCountry) {
@@ -26,7 +26,7 @@ public class Country {
     }
 
     public String getCountryName() {
-        return this.countryName;
+        return countryName;
     }
 
     public void setCountryName(String countryName) {
@@ -34,12 +34,10 @@ public class Country {
     }
 
     public Integer getFifaRank() {
-        return this.fifaRank;
+        return fifaRank;
     }
 
     public void setFifaRank(Integer fifaRank) {
         this.fifaRank = fifaRank;
     }
-
-
 }

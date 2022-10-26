@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="t_postion")
-public class Position {
+public class PosPlayer {
 
     @Id
     @Column(name="id_position")

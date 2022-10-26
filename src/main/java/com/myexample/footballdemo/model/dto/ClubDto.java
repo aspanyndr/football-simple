@@ -7,7 +7,16 @@ public class ClubDto {
     private String clubName;
     private String competition;
     private Integer idCountry;
+    private String clubOrigin;
 
+
+    public Integer getIdCountry() {
+        return idCountry;
+    }
+
+    public void setIdCountry(Integer idCountry) {
+        this.idCountry = idCountry;
+    }
 
     public Integer getIdClub() {
         return this.idClub;
@@ -33,12 +42,11 @@ public class ClubDto {
         this.competition = competition;
     }
 
-    public Integer getIdCountry() {
-        return this.idCountry;
+    public String getClubOrigin() {
+        return clubOrigin;
     }
 
-    public void setIdCountry(Integer idCountry) {
-        this.idCountry = idCountry;
+    public void setClubOrigin(String clubOrigin) {
+        this.clubOrigin = clubOrigin;
     }
-
 }

@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,30 +19,28 @@ public class Player {
     private String playerName;
     @Column(name="age")
     private Integer age;
+//    @Column(name="id_position")
+//    private Integer idPosition;
+//    @Column(name="id_country")
+//    private Integer idCountry;
+//    @Column(name="id_club")
+//    private Integer idClub;
 
-    @Column(name="id_position")
-    private Integer idPosition;
-    @Column(name="id_country")
-    private Integer idCountry;
-    @Column(name="id_club")
-    private Integer idClub;
 
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="id_position")
+    private PosPlayer playerPosPlayer;
 
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name="id_position",insertable = false, updatable = false)
-    private Position playerPosition;
-    
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name="id_country", insertable = false, updatable = false)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="id_country")
     private Country playerCountry;
 
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name="id_club", insertable = false, updatable = false)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="id_club")
     private Club playerClub;
 
-
     public Integer getIdPlayer() {
-        return this.idPlayer;
+        return idPlayer;
     }
 
     public void setIdPlayer(Integer idPlayer) {
@@ -51,7 +48,7 @@ public class Player {
     }
 
     public String getPlayerName() {
-        return this.playerName;
+        return playerName;
     }
 
     public void setPlayerName(String playerName) {
@@ -59,23 +56,23 @@ public class Player {
     }
 
     public Integer getAge() {
-        return this.age;
+        return age;
     }
 
     public void setAge(Integer age) {
         this.age = age;
     }
 
-    public Position getPlayerPosition() {
-        return this.playerPosition;
+    public PosPlayer getPlayerPosition() {
+        return playerPosPlayer;
     }
 
-    public void setPlayerPosition(Position playerPosition) {
-        this.playerPosition = playerPosition;
+    public void setPlayerPosition(PosPlayer playerPosPlayer) {
+        this.playerPosPlayer = playerPosPlayer;
     }
 
     public Country getPlayerCountry() {
-        return this.playerCountry;
+        return playerCountry;
     }
 
     public void setPlayerCountry(Country playerCountry) {
@@ -83,11 +80,10 @@ public class Player {
     }
 
     public Club getPlayerClub() {
-        return this.playerClub;
+        return playerClub;
     }
 
     public void setPlayerClub(Club playerClub) {
         this.playerClub = playerClub;
     }
-
 }

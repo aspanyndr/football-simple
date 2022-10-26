@@ -1,5 +1,9 @@
 package com.myexample.footballdemo.controller;
 
+import com.myexample.footballdemo.model.entity.Country;
+import com.myexample.footballdemo.repository.CountryRepository;
+import com.myexample.footballdemo.repository.PlayerRepository;
+import com.myexample.footballdemo.repository.PositionRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.catalina.valves.rewrite.InternalRewriteMap.UpperCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,13 +24,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @RestController
 @RequestMapping("/club")
 public class ClubController {
 
+
+
     @Autowired
     ClubRepository clubRepository;
+
+    @Autowired
+    CountryRepository countryRepository;
+
 
     @PostMapping("/save")
     public DefaultResponse<ClubDto> saveClub(@RequestBody ClubDto clubDto){
@@ -40,7 +48,7 @@ public class ClubController {
             response.setData(clubDto);
         }
         else if(optionalClubId.isEmpty()){
-            clubRepository.save(club);
+            response.setData(convertEntityToDto(clubRepository.save(club)));
             response.setStatus(true);
             response.setMessege("Your data has been stored");
             response.setData(clubDto);
@@ -81,37 +89,33 @@ public class ClubController {
             clubRepository.delete(optionalClub.get());
             response.setStatus(Boolean.TRUE);
             response.setMessege("Succes deleted club");
-            response.setData(response);
+            response.setData(optionalClub);
         } else {
             response.setStatus(Boolean.FALSE);
             response.setMessege("Failed delete club");
-            response.setData(response);
+            response.setData(optionalClub);
         }
         return response;
     }
 
     @PutMapping("/update/{id}")
-    public DefaultResponse update(@PathVariable("id") Integer id, @RequestBody ClubDto clubDto) {
-        DefaultResponse df = new DefaultResponse();
-        Optional<Club> optionaClub = clubRepository.findByIdClub(id);
-        Club club = optionaClub.get();
-        if (optionaClub.isPresent()) {
-            club.setIdClub(clubDto.getIdClub());
-            club.setClubName(clubDto.getClubName());
-            club.setCompetition(clubDto.getCompetition());
-            club.setIdCountry(clubDto.getIdCountry());
+    public DefaultResponse<ClubDto> update(@PathVariable("id") Integer id, @RequestBody ClubDto clubDto) {
+        DefaultResponse response = new DefaultResponse();
+        Optional<Club> optionalClub = clubRepository.findByIdClub(id);
+        Club club = optionalClub.get();
+        if (optionalClub.isPresent()) {
 
-            
-            clubRepository.save(club);
-            df.setStatus(Boolean.TRUE);
-            df.setMessege("Club succesfully updated");
-            df.setData(club);
+
+            response.setData(convertEntityToDto(clubRepository.save(convertDtoToEntity(clubDto))));
+            response.setStatus(Boolean.TRUE);
+            response.setMessege("Club succesfully updated");
+
         } else {
-            df.setStatus(Boolean.FALSE);
-            df.setMessege("Sorry can not update club");
-            df.setData(club);
+            response.setStatus(Boolean.FALSE);
+            response.setMessege("Sorry can not update club");
+            response.setData(club);
         }
-        return df;
+        return response;
     }
 
     public Club convertDtoToEntity(ClubDto clubDto){
@@ -121,17 +125,23 @@ public class ClubController {
         club.setClubName(clubDto.getClubName());
         club.setCompetition(clubDto.getCompetition());
 
+        Country country = countryRepository.findByIdCountry(clubDto.getIdClub()).get();
+        club.setClubCountry(country);
+
+
         return club;
     }
 
-    public ClubDto convertEntityToDto(Club club){
-        ClubDto clubDto = new ClubDto();
+    public ClubDto convertEntityToDto(Club ent){
+        ClubDto dto = new ClubDto();
 
-        clubDto.setIdClub(club.getIdClub());
-        clubDto.setClubName(club.getClubName());
-        clubDto.setCompetition(club.getCompetition());
-        clubDto.setIdCountry(club.getIdClub());
+        dto.setIdClub(ent.getIdClub());
+        dto.setClubName(ent.getClubName());
+        dto.setCompetition(ent.getCompetition());
 
-        return clubDto;
+        dto.setIdCountry(ent.getClubCountry().getIdCountry());
+        dto.setClubOrigin(ent.getClubCountry().getCountryName());
+
+        return dto;
     }    
 }

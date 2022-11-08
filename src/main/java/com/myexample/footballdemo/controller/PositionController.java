@@ -37,7 +37,7 @@ public class PositionController {
     }
 
 
-    @GetMapping("/{idPosition}")
+    @GetMapping("get/{idPosition}")
     public DefaultResponse<PosDto> getByIdPlayer (@PathVariable("idPosition") Integer idPosition){
         DefaultResponse<PosDto> response = new DefaultResponse<>();
         Optional<PosPlayer> optionalPosPlayer = positionRepository.findByIdPosition(idPosition);

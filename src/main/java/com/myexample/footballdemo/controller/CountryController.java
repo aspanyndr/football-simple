@@ -57,9 +57,9 @@ public class CountryController {
         // return listCountry;
     }
 
-    @GetMapping("/getId/{id}")
-    public DefaultResponse<CountryDto> getById(@PathVariable Integer id){
-        DefaultResponse response = countryService.readIdCountry(id);
+    @GetMapping("/get/{idCountry}")
+    public DefaultResponse<CountryDto> getById(@PathVariable Integer idCountry){
+        DefaultResponse response = countryService.readIdCountry(idCountry);
         return response;
         // DefaultResponse<CountryDto> response = new DefaultResponse<>();
         // Optional<Country> optionalCountry = countryRepository.findByIdCountry(id);

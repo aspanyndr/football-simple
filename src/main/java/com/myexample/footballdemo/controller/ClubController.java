@@ -52,10 +52,10 @@ public class ClubController {
         return response;
     }
 
-    @GetMapping("/getById/{id}")
-    public DefaultResponse<ClubDto> getByIdPlayer (@PathVariable Integer id){
+    @GetMapping("/get/{idClub}")
+    public DefaultResponse<ClubDto> getByIdPlayer (@PathVariable Integer idClub){
         DefaultResponse<ClubDto> response = new DefaultResponse<>();
-        Optional<Club> optionalClub = clubRepository.findByIdClub(id);
+        Optional<Club> optionalClub = clubRepository.findByIdClub(idClub);
         if (optionalClub.isPresent()){
             response.setStatus(true);
             response.setMessege("Success!, Here's your club");

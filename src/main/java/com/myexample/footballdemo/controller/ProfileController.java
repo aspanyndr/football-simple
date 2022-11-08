@@ -32,8 +32,8 @@ public class ProfileController {
         return profileDtos;
     }
 
-    @GetMapping("/{id}")
-    public DefaultResponse<PlayerProfileDto> getByIdPlayer (@PathVariable("id") Integer id){
+    @GetMapping("get/{idPosition}")
+    public DefaultResponse<PlayerProfileDto> getByIdPlayer (@PathVariable("idPosition") Integer id){
         DefaultResponse<PlayerProfileDto> response = new DefaultResponse<>();
         Optional<Player> optionalPlayer = playerRepository.findById(id);
         PlayerProfileDto player = new PlayerProfileDto();

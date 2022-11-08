@@ -54,7 +54,7 @@ public class PlayerController {
         return response;
     }
 
-    @GetMapping("/getId/{idPlayer}")
+    @GetMapping("/get/{idPlayer}")
     public DefaultResponse<PlayerDto> getByIdPlayer (@PathVariable("idPlayer") Integer idPlayer){
         // DefaultResponse<PlayerDto> response = new DefaultResponse<>();
         // Optional<Player> optionalPlayer = playerRepository.findByIdPlayer(idPlayer);

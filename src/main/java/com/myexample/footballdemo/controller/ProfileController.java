@@ -52,16 +52,18 @@ public class ProfileController {
     }
 
     @GetMapping("getClubPlayer/{idPlayer}")
-    public PlayerBioClubDto getPlayerBioClub (@PathVariable("idPlayer") Integer id){
+    public PlayerBioClubDto getPlayerBioClub (@PathVariable Integer idPlayer){
         PlayerBioClubDto bioClubDto = new PlayerBioClubDto();
-        Optional<Player> optionalPlayer = playerRepository.findById(id);
+        Optional<Player> optionalPlayer = playerRepository.findByIdPlayer(idPlayer);
         if (optionalPlayer.isPresent()){
-            Player player = new Player();
+            Player player = optionalPlayer.get();
             bioClubDto.setPlayerName(player.getPlayerName());
             bioClubDto.setAge(player.getAge());
             bioClubDto.setPosition(player.getPlayerPosition().getPosition());
             bioClubDto.setClubName(player.getPlayerClub().getClubName());
             bioClubDto.setCompetition(player.getPlayerClub().getCompetition());
+        }else{
+
         }
 
         return bioClubDto;

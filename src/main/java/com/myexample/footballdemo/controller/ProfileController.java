@@ -1,6 +1,7 @@
 package com.myexample.footballdemo.controller;
 
 import com.myexample.footballdemo.model.dto.DefaultResponse;
+import com.myexample.footballdemo.model.dto.PlayerBioClubDto;
 import com.myexample.footballdemo.model.dto.PlayerDto;
 import com.myexample.footballdemo.model.dto.PlayerProfileDto;
 import com.myexample.footballdemo.model.entity.Player;
@@ -32,11 +33,11 @@ public class ProfileController {
         return profileDtos;
     }
 
-    @GetMapping("get/{idPosition}")
-    public DefaultResponse<PlayerProfileDto> getByIdPlayer (@PathVariable("idPosition") Integer id){
+    @GetMapping("get/{idPlayer}")
+    public DefaultResponse<PlayerProfileDto> getByIdPlayer (@PathVariable("idPlayer") Integer id){
         DefaultResponse<PlayerProfileDto> response = new DefaultResponse<>();
         Optional<Player> optionalPlayer = playerRepository.findById(id);
-        PlayerProfileDto player = new PlayerProfileDto();
+        // PlayerProfileDto player = new PlayerProfileDto();
         if (optionalPlayer.isPresent()){
             response.setStatus(true);
             response.setMessege("Found it!, Here's your player profile");
@@ -48,6 +49,22 @@ public class ProfileController {
             response.setMessege("Sorry theres a mistake, your player cannot be found");
         }
         return response;
+    }
+
+    @GetMapping("getClubPlayer/{idPlayer}")
+    public PlayerBioClubDto getPlayerBioClub (@PathVariable("idPlayer") Integer id){
+        PlayerBioClubDto bioClubDto = new PlayerBioClubDto();
+        Optional<Player> optionalPlayer = playerRepository.findById(id);
+        if (optionalPlayer.isPresent()){
+            Player player = new Player();
+            bioClubDto.setPlayerName(player.getPlayerName());
+            bioClubDto.setAge(player.getAge());
+            bioClubDto.setPosition(player.getPlayerPosition().getPosition());
+            bioClubDto.setClubName(player.getPlayerClub().getClubName());
+            bioClubDto.setCompetition(player.getPlayerClub().getCompetition());
+        }
+
+        return bioClubDto;
     }
 
     public PlayerDto convertEntityToDto(Player en ) {

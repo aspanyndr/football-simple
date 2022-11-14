@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/club")
+@RequestMapping("/football/club")
 public class ClubController {
 
     @Autowired

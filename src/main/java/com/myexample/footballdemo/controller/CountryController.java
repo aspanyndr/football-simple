@@ -17,7 +17,7 @@ import com.myexample.footballdemo.model.dto.DefaultResponse;
 import com.myexample.footballdemo.service.CountryService;
 
 @RestController
-@RequestMapping("/country")
+@RequestMapping("/football/country")
 public class CountryController {
 
     @Autowired

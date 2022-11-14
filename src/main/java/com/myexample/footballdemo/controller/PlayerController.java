@@ -20,7 +20,7 @@ import com.myexample.footballdemo.model.dto.PlayerDto;
 import com.myexample.footballdemo.service.PlayerService;
 
 @RestController
-@RequestMapping("/player")
+@RequestMapping("/football/player")
 public class PlayerController {
 
     @Autowired

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +50,15 @@ public class ProfileController {
             response.setMessege("Sorry theres a mistake, your player cannot be found");
         }
         return response;
+    }
+
+    @GetMapping("/getClubPlayer")
+    public List getClubPlayerFull(){
+        List <PlayerBioClubDto> profileClubDtos = new ArrayList();
+        for (Player player : playerRepository.findAll()){
+            profileClubDtos.add(convertEntityToDtoPalyerClub(player));
+        }
+        return profileClubDtos;
     }
 
     @GetMapping("getClubPlayer/{idPlayer}")
@@ -89,6 +99,21 @@ public class ProfileController {
 
         return dto;
     }
+
+    public PlayerBioClubDto convertEntityToDtoPalyerClub(Player player) {
+        PlayerBioClubDto dto = new PlayerBioClubDto();
+
+        
+        dto.setPlayerName(player.getPlayerName());
+        dto.setAge(player.getAge());
+
+        dto.setClubName(player.getPlayerClub().getClubName());
+        dto.setCompetition(player.getPlayerClub().getCompetition());
+        dto.setPosition(player.getPlayerPosition().getPosition());
+
+        return dto;
+    }
+
 
     public PlayerProfileDto convertEntityToDtoFull(Player player) {
         PlayerProfileDto dto = new PlayerProfileDto();

@@ -19,7 +19,7 @@ public class PositionController {
     @Autowired
     PositionRepository positionRepository;
 
-    @PostMapping("/save")
+    @PostMapping
     public DefaultResponse<PosDto> savePos(@RequestBody PosDto dto) {
         PosPlayer posPlayer = entityToDto(dto);
         DefaultResponse<PosDto> response = new DefaultResponse<>();
@@ -37,7 +37,7 @@ public class PositionController {
     }
 
 
-    @GetMapping("get/{idPosition}")
+    @GetMapping("/{idPosition}")
     public DefaultResponse<PosDto> getByIdPlayer (@PathVariable("idPosition") Integer idPosition){
         DefaultResponse<PosDto> response = new DefaultResponse<>();
         Optional<PosPlayer> optionalPosPlayer = positionRepository.findByIdPosition(idPosition);
@@ -54,7 +54,7 @@ public class PositionController {
         return response;
     }
 
-    @GetMapping("/get")
+    @GetMapping
     public List getPosition(){
         List <PosDto> posDtos = new ArrayList();
         for (PosPlayer posPlayer : positionRepository.findAll()){
@@ -63,7 +63,7 @@ public class PositionController {
         return posDtos;
     }
 
-    @DeleteMapping("/delete/{idPosition}")
+    @DeleteMapping("/{idPosition}")
     public DefaultResponse deleteById(@PathVariable("idPosition") Integer idPosition) {
         DefaultResponse response = new DefaultResponse();
         Optional<PosPlayer> optionalPosPlayer = positionRepository.findByIdPosition(idPosition);
@@ -80,7 +80,7 @@ public class PositionController {
         return response;
     }
 
-    @PutMapping("/update")
+    @PutMapping
     public DefaultResponse updatePosition( @RequestBody PosDto dto) {
         DefaultResponse response = new DefaultResponse();
         Optional<PosPlayer> optionalPosPlayer = positionRepository.findByIdPosition(dto.getIdPosition());

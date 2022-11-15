@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +24,7 @@ public class ProfileController {
     PlayerRepository playerRepository;
 
 
-    @GetMapping("/get")
+    @GetMapping
     public List getPlayerFull(){
         List <PlayerProfileDto> profileDtos = new ArrayList();
         for (Player player : playerRepository.findAll()){
@@ -34,7 +33,7 @@ public class ProfileController {
         return profileDtos;
     }
 
-    @GetMapping("get/{idPlayer}")
+    @GetMapping("/{idPlayer}")
     public DefaultResponse<PlayerProfileDto> getByIdPlayer (@PathVariable("idPlayer") Integer id){
         DefaultResponse<PlayerProfileDto> response = new DefaultResponse<>();
         Optional<Player> optionalPlayer = playerRepository.findById(id);
@@ -50,33 +49,6 @@ public class ProfileController {
             response.setMessege("Sorry theres a mistake, your player cannot be found");
         }
         return response;
-    }
-
-    @GetMapping("/getClubPlayer")
-    public List getClubPlayerFull(){
-        List <PlayerBioClubDto> profileClubDtos = new ArrayList();
-        for (Player player : playerRepository.findAll()){
-            profileClubDtos.add(convertEntityToDtoPalyerClub(player));
-        }
-        return profileClubDtos;
-    }
-
-    @GetMapping("getClubPlayer/{idPlayer}")
-    public PlayerBioClubDto getPlayerBioClub (@PathVariable Integer idPlayer){
-        PlayerBioClubDto bioClubDto = new PlayerBioClubDto();
-        Optional<Player> optionalPlayer = playerRepository.findByIdPlayer(idPlayer);
-        if (optionalPlayer.isPresent()){
-            Player player = optionalPlayer.get();
-            bioClubDto.setPlayerName(player.getPlayerName());
-            bioClubDto.setAge(player.getAge());
-            bioClubDto.setPosition(player.getPlayerPosition().getPosition());
-            bioClubDto.setClubName(player.getPlayerClub().getClubName());
-            bioClubDto.setCompetition(player.getPlayerClub().getCompetition());
-        }else{
-
-        }
-
-        return bioClubDto;
     }
 
     public PlayerDto convertEntityToDto(Player en ) {

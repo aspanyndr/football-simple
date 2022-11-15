@@ -33,7 +33,7 @@ public class ClubController {
     @Autowired
     CountryRepository countryRepository;
 
-    @PostMapping("/save")
+    @PostMapping
     public DefaultResponse<ClubDto> saveClub(@RequestBody ClubDto clubDto){
         Club club = convertDtoToEntity(clubDto);
         DefaultResponse<ClubDto> response = new DefaultResponse<>();
@@ -52,7 +52,7 @@ public class ClubController {
         return response;
     }
 
-    @GetMapping("/get/{idClub}")
+    @GetMapping("/{idClub}")
     public DefaultResponse<ClubDto> getByIdPlayer (@PathVariable Integer idClub){
         DefaultResponse<ClubDto> response = new DefaultResponse<>();
         Optional<Club> optionalClub = clubRepository.findByIdClub(idClub);
@@ -68,7 +68,7 @@ public class ClubController {
         return response;
     }
 
-    @GetMapping("/get")
+    @GetMapping
     public List<ClubDto> getPlayer(){
         List <ClubDto> listClub = new ArrayList<ClubDto>();
         for (Club club : clubRepository.findAll()){
@@ -77,7 +77,7 @@ public class ClubController {
         return listClub;
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public DefaultResponse deleteById(@PathVariable("id") Integer id) {
         DefaultResponse response = new DefaultResponse();
         Optional<Club> optionalClub = clubRepository.findByIdClub(id);
@@ -94,7 +94,7 @@ public class ClubController {
         return response;
     }
 
-    @PutMapping("/update")
+    @PutMapping
     public DefaultResponse<ClubDto> update(@RequestBody ClubDto clubDto) {
         DefaultResponse response = new DefaultResponse();
         Optional<Club> optionalClub = clubRepository.findByIdClub(clubDto.getIdClub());
